@@ -36,5 +36,7 @@ logging:
   level:
     com.ssdb: INFO
     org.springframework.security: WARN
+    # 请求链路追踪日志（排障用）：记录每个进入后端的请求
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
