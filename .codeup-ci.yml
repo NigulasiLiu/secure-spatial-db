@@ -1,0 +1,42 @@
+sources:
+  default:
+    type: codeup
+    name: secure-spatial-db
+    branch: master
+
+envs:
+  ACR_REGISTRY: "registry.cn-hangzhou.aliyuncs.com"
+  ACR_NAMESPACE: "ssdb"
+  IMAGE_BACKEND: "${ACR_REGISTRY}/${ACR_NAMESPACE}/backend:${CI_COMMIT_SHORT_SHA}"
+  IMAGE_FRONTEND: "${ACR_REGISTRY}/${ACR_NAMESPACE}/frontend:${CI_COMMIT_SHORT_SHA}"
+  ECS_HOST: "${ECS_HOST}"
+  ECS_USER: "root"
+  DEPLOY_DIR: "/opt/secure-spatial-db"
+
+stages:
+  build:
+    name: "Build Images"
+    jobs:
+      build_backend:
+        steps:
+          - step: Script
+            name: "Build Backend"
+            script:
+              - docker build -t ${IMAGE_BACKEND} ./backend
+              - docker push ${IMAGE_BACKEND}
+          - step: Script
+            name: "Build Frontend"
+            script:
+              - docker build -t ${IMAGE_FRONTEND} ./frontend
+              - docker push ${IMAGE_FRONTEND}
+
+  deploy:
+    name: "Deploy to ECS"
+    depends_on: build
+    jobs:
+      deploy_job:
+        steps:
+          - step: Script
+            name: "SSH Deploy"
+            script:
+              - ssh -o StrictHostKeyChecking=no ${ECS_USER}@${ECS_HOST} "cd ${DEPLOY_DIR} && docker pull ${IMAGE_BACKEND} && docker pull ${IMAGE_FRONTEND} && export IMAGE_BACKEND=${IMAGE_BACKEND} && export IMAGE_FRONTEND=${IMAGE_FRONTEND} && docker-compose -f docker-compose.prod.yml up -d --no-build && docker image prune -f"

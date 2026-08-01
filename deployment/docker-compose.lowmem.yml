@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  mysql:
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-buffer-pool-size=128M
+      --innodb-log-file-size=32M
+      --max-connections=50
+      --thread-cache-size=4
+      --table-open-cache=100
+    mem_limit: 400m
+
+  minio:
+    mem_limit: 300m
+
+  backend:
+    environment:
+      JAVA_OPTS: "-Xms128m -Xmx384m -XX:MaxMetaspaceSize=128m"
+    mem_limit: 512m
+
+  frontend:
+    mem_limit: 64m

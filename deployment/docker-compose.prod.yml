@@ -1,0 +1,79 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ssdb-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ssdb_root_2026}
+      MYSQL_DATABASE: ssdb
+      MYSQL_USER: ssdb
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ssdb_pass_2026}
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-buffer-pool-size=256M
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: ssdb-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-ssdb_minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-ssdb_minio_2026}
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: ${IMAGE_BACKEND}
+    container_name: ssdb-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ssdb?useSSL=false&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: ssdb
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-ssdb_pass_2026}
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ssdb_minio}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ssdb_minio_2026}
+      MINIO_BUCKET: encrypted-files
+      JWT_SECRET: ${JWT_SECRET:-ssdb_jwt_secret_key_2026}
+      JAVA_OPTS: "-Xmx512m"
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: ${IMAGE_FRONTEND}
+    container_name: ssdb-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mysql-data:
+  minio-data:

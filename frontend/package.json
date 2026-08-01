@@ -1,0 +1,29 @@
+{
+  "name": "secure-spatial-db-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "pinia": "^2.1.7",
+    "element-plus": "^2.7.0",
+    "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.6.8",
+    "leaflet": "^1.9.4",
+    "blake2b-wasm": "^2.4.0",
+    "jsbn": "^1.1.0",
+    "js-base64": "^3.7.7",
+    "spark-md5": "^3.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.8",
+    "vite-plugin-leaflet": "^1.0.0"
+  }
+}

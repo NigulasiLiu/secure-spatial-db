@@ -1,0 +1,47 @@
+CREATE DATABASE IF NOT EXISTS ssdb DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE ssdb;
+
+CREATE TABLE IF NOT EXISTS edb_p (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    index_key VARCHAR(512) NOT NULL,
+    cnt INT NOT NULL,
+    chain_link VARBINARY(256) NOT NULL,
+    e_id VARBINARY(256) NOT NULL,
+    e_op VARBINARY(256) NOT NULL,
+    UNIQUE KEY uk_key_cnt (index_key, cnt),
+    INDEX idx_key (index_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS edb_k (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    index_key VARCHAR(512) NOT NULL,
+    cnt INT NOT NULL,
+    k_x VARBINARY(128) NOT NULL,
+    k_x_prime VARBINARY(128) NOT NULL,
+    UNIQUE KEY uk_key_cnt (index_key, cnt),
+    INDEX idx_key (index_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS ss (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    key_x VARCHAR(512) NOT NULL,
+    state_value VARBINARY(256) NOT NULL,
+    UNIQUE KEY uk_key (key_x)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS doc_meta (
+    file_id INT PRIMARY KEY,
+    oss_object_key VARCHAR(512) NOT NULL,
+    encrypted_name VARCHAR(512),
+    file_size BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(128) NOT NULL UNIQUE,
+    password_hash VARCHAR(256) NOT NULL,
+    jwt_version INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
