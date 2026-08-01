@@ -122,14 +122,38 @@ function _bpcRecursive(start, end, prefix, depth, maxDepth, result) {
 }
 
 export function spatialRangeToPrefixes(lngMin, latMin, lngMax, latMax) {
-  const hiStart = geoToHilbert(lngMin, latMin)
-  const hiEnd = geoToHilbert(lngMax, latMax)
-  if (hiStart <= hiEnd) {
-    return binaryPrefixCover(hiStart, hiEnd)
+  const { gx: gxMin, gy: gyMin } = geoToGrid(lngMin, latMin)
+  const { gx: gxMax, gy: gyMax } = geoToGrid(lngMax, latMax)
+
+  // 1. Enumerate all grid cells in the rectangle and compute Hilbert indices
+  const allHilberts = []
+  for (let gx = gxMin; gx <= gxMax; gx++) {
+    for (let gy = gyMin; gy <= gyMax; gy++) {
+      allHilberts.push(xyToHilbert(gx, gy))
+    }
   }
-  const part1 = binaryPrefixCover(hiStart, GRID_SIZE * GRID_SIZE - 1)
-  const part2 = binaryPrefixCover(0, hiEnd)
-  return [...part1, ...part2]
+
+  // 2. Sort and merge into continuous intervals
+  allHilberts.sort((a, b) => a - b)
+  const ranges = []
+  let start = allHilberts[0]
+  let end = start
+  for (let i = 1; i < allHilberts.length; i++) {
+    if (allHilberts[i] === end + 1) {
+      end = allHilberts[i]
+    } else {
+      ranges.push([start, end])
+      start = end = allHilberts[i]
+    }
+  }
+  ranges.push([start, end])
+
+  // 3. Apply BPC to each interval
+  const allPrefixes = []
+  for (const [rStart, rEnd] of ranges) {
+    allPrefixes.push(...binaryPrefixCover(rStart, rEnd))
+  }
+  return allPrefixes
 }
 
 export function prefixToString(prefix, length) {
