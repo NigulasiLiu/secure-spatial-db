@@ -85,4 +85,13 @@ public class HashFunctions {
         }
         return data;
     }
+
+    public static byte[] intTo16Bytes(int value) {
+        byte[] result = new byte[16];
+        result[12] = (byte) (value >>> 24);
+        result[13] = (byte) (value >>> 16);
+        result[14] = (byte) (value >>> 8);
+        result[15] = (byte) value;
+        return result;
+    }
 }

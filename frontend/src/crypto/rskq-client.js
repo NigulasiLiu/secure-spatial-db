@@ -77,23 +77,26 @@ export class RSKQClient {
       const fIdBi = bi.fromInt(fileId)
       const opBi = bi.fromInt(1)
 
-      const h1Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
-      const h2Input = blake.concatBytes(kxPrime, bi.toBytes(bi.fromInt(cnt), LAMBDA))
-      const h3Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
+      const cntBytes = bi.toBytes(bi.fromInt(cnt), LAMBDA)
+      const h1Input = blake.concatBytes(kx, cntBytes)
+      const h2Input = blake.concatBytes(kxPrime, cntBytes)
+      const h3Input = blake.concatBytes(kx, cntBytes)
 
-      const chainLink = bi.xor(bi.fromBytes(blake.h1(h1Input)), fIdBi)
+      const h1Val = blake.h1(h1Input)
+      const tableKey = wc.bytesToHex(h1Val)
+      const chainLink = bi.xor(bi.fromBytes(h1Val), fIdBi)
       const eId = bi.xor(bi.fromBytes(blake.h2(h2Input)), fIdBi)
       const eOp = bi.xor(bi.fromBytes(blake.h3(h3Input)), opBi)
 
       const stateKey = indexKey + '_state'
       const prevState = this.stateTree.get(stateKey) || bi.ZERO
-      const h4Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
+      const h4Input = blake.concatBytes(kx, cntBytes)
       const newState = bi.xor(bi.fromBytes(blake.h4(h4Input)), bi.xor(prevState, fIdBi))
       this.stateTree.set(stateKey, newState)
 
       entries.push({
         targetTable: 'edb_p',
-        indexKey: indexKey,
+        indexKey: tableKey,
         chainLink: bi.toBase64(chainLink),
         eId: bi.toBase64(eId),
         eOp: bi.toBase64(eOp),
@@ -123,23 +126,26 @@ export class RSKQClient {
       const fIdBi = bi.fromInt(fileId)
       const opBi = bi.fromInt(0)
 
-      const h1Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
-      const h2Input = blake.concatBytes(kxPrime, bi.toBytes(bi.fromInt(cnt), LAMBDA))
-      const h3Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
+      const cntBytes = bi.toBytes(bi.fromInt(cnt), LAMBDA)
+      const h1Input = blake.concatBytes(kx, cntBytes)
+      const h2Input = blake.concatBytes(kxPrime, cntBytes)
+      const h3Input = blake.concatBytes(kx, cntBytes)
 
-      const chainLink = bi.xor(bi.fromBytes(blake.h1(h1Input)), fIdBi)
+      const h1Val = blake.h1(h1Input)
+      const tableKey = wc.bytesToHex(h1Val)
+      const chainLink = bi.xor(bi.fromBytes(h1Val), fIdBi)
       const eId = bi.xor(bi.fromBytes(blake.h2(h2Input)), fIdBi)
       const eOp = bi.xor(bi.fromBytes(blake.h3(h3Input)), opBi)
 
       const stateKey = indexKey + '_state'
       const prevState = this.stateTree.get(stateKey) || bi.ZERO
-      const h4Input = blake.concatBytes(kx, bi.toBytes(bi.fromInt(cnt), LAMBDA))
+      const h4Input = blake.concatBytes(kx, cntBytes)
       const newState = bi.xor(bi.fromBytes(blake.h4(h4Input)), bi.xor(prevState, fIdBi))
       this.stateTree.set(stateKey, newState)
 
       entries.push({
         targetTable: 'edb_p',
-        indexKey: indexKey,
+        indexKey: tableKey,
         chainLink: bi.toBase64(chainLink),
         eId: bi.toBase64(eId),
         eOp: bi.toBase64(eOp),

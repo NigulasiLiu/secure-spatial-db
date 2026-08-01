@@ -36,21 +36,20 @@ public class RSKQServer {
         result.encryptedState = ex;
 
         Map<Integer, BigInteger[]> encryptedBitmaps = new HashMap<>();
-        byte[] ri = rcnt;
 
         for (int i = cnt; i >= cntU; i--) {
+            byte[] ri = HashFunctions.intTo16Bytes(i);
             byte[] indexBytes = hashFunctions.hashBytes(kx, ri);
             String indexKey = HashFunctions.bytesToHex(indexBytes);
 
             StorageAdapter.CipherTextRecord record = storageAdapter.getEncryptedEntry(table, indexKey);
             if (record == null) {
-                log.warn("search chain break at i={} key={}", i, indexKey);
+                log.warn("search miss at i={} key={}", i, indexKey);
                 continue;
             }
 
-            encryptedBitmaps.put(i - cntU, new BigInteger[]{record.eId, record.eOp});
+            encryptedBitmaps.put(i, new BigInteger[]{record.eId, record.eOp});
             storageAdapter.removeEncryptedEntry(table, indexKey);
-            ri = hashFunctions.xorBytes(record.chainLink, hashFunctions.hashBytes(kx, ri));
         }
 
         result.encryptedBitmaps = encryptedBitmaps;
