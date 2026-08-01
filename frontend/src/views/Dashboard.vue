@@ -251,33 +251,32 @@ function initHeatmapChart() {
   const coords = cacheManager.getAllDocCoords()
   const points = []
   for (const [fileId, coord] of Object.entries(coords)) {
-    points.push([coord.lng, coord.lat, 1])
+    points.push({ value: [coord.lng, coord.lat, 1], fileId })
   }
   if (points.length === 0) {
-    points.push([116.4, 39.9, 0], [121.5, 31.2, 0], [113.3, 23.1, 0])
+    points.push({ value: [116.4, 39.9, 0] }, { value: [121.5, 31.2, 0] }, { value: [113.3, 23.1, 0] })
   }
-  const lngs = points.map(p => p[0])
-  const lats = points.map(p => p[1])
-  const minLng = Math.min(...lngs) - 1, maxLng = Math.max(...lngs) + 1
-  const minLat = Math.min(...lats) - 1, maxLat = Math.max(...lats) + 1
+  const lngs = points.map(p => p.value[0])
+  const lats = points.map(p => p.value[1])
+  const minLng = Math.min(...lngs), maxLng = Math.max(...lngs)
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats)
   heatmapChart.setOption({
-    tooltip: { formatter: p => `坐标: ${p.value[0].toFixed(2)}, ${p.value[1].toFixed(2)}<br/>文档数: ${p.value[2]}` },
+    tooltip: {
+      formatter: p => `经度: ${p.value[0].toFixed(2)}<br/>纬度: ${p.value[1].toFixed(2)}<br/>文档数: ${p.value[2]}`
+    },
     visualMap: {
-      min: 0, max: Math.max(5, ...points.map(p => p[2])),
-      inRange: { color: ['#50a3ba', '#eac736', '#d94e5d'] },
-      left: 'right', top: 'center'
+      show: false,
+      min: 0, max: Math.max(1, ...points.map(p => p.value[2])),
+      inRange: { color: ['#50a3ba', '#eac736', '#d94e5d'] }
     },
-    geo: {
-      type: 'scatter',
-      left: '5%', right: '15%', top: '5%', bottom: '5%'
-    },
-    xAxis: { type: 'value', name: '经度', min: minLng, max: maxLng },
-    yAxis: { type: 'value', name: '纬度', min: minLat, max: maxLat },
+    grid: { left: '5%', right: '15%', top: '5%', bottom: '5%' },
+    xAxis: { type: 'value', name: '经度', min: minLng - 1, max: maxLng + 1, scale: true },
+    yAxis: { type: 'value', name: '纬度', min: minLat - 1, max: maxLat + 1, scale: true },
     series: [{
-      type: 'heatmap',
+      type: 'scatter',
       data: points,
-      pointSize: 20,
-      blurSize: 30
+      symbolSize: 14,
+      itemStyle: { opacity: 0.8 }
     }]
   })
 }
