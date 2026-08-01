@@ -1,0 +1,10 @@
+{
+  "description": "物联网设备定位记录样本，用于系统测试",
+  "records": [
+    {"deviceId": "DTU-001", "name": "配送车A", "lng": 116.4042, "lat": 39.9150, "status": "running"},
+    {"deviceId": "DTU-002", "name": "配送车B", "lng": 116.3732, "lat": 39.8782, "status": "idle"},
+    {"deviceId": "DTU-003", "name": "巡检无人机", "lng": 116.3310, "lat": 40.0082, "status": "flying"},
+    {"deviceId": "DTU-004", "name": "共享单车驿站", "lng": 116.4632, "lat": 39.9302, "status": "docked"},
+    {"deviceId": "DTU-005", "name": "气象站", "lng": 116.2870, "lat": 39.9222, "status": "reporting"}
+  ]
+}

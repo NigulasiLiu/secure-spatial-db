@@ -1,1 +1,37 @@
-.idea/*
+# ==== 本机环境配置文件（不要提交） ====
+# Maven 本地镜像配置（本机专用）
+backend/.mvn-settings.xml
+# npm 本地镜像配置（本机专用）
+frontend/.npmrc
+
+# ==== 构建产物 ====
+# 后端 Maven 编译输出
+backend/target/
+# 前端构建输出
+frontend/dist/
+# 本地临时文件
+*.log
+*.tmp
+# 本机内部操作备忘文档（不提交到公开仓库）
+提交指南.md
+
+# ==== 依赖目录 & 锁定文件（由包管理器生成，勿提交） ====
+backend/node_modules/
+frontend/node_modules/
+# package-lock.json 为本机 npm install 生成，与原始仓库结构不一致，忽略不提交
+frontend/package-lock.json
+
+# ==== 运行期数据（本次本地部署生成，勿提交） ====
+# Docker 数据卷若用本地方案时
+/data/
+minio-data/
+mysql-data/
+
+# ==== IDE / 编辑器 ====
+.idea/
+.vscode/
+*.iml
+
+# ==== 操作系统杂项 ====
+.DS_Store
+Thumbs.db

@@ -23,10 +23,12 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => {
     const data = response.data
-    if (data.code === 200) {
+    // 后端 ApiResponseDto 返回结构: { success, message, data }
+    // success===true 视为业务成功
+    if (data && data.success === true) {
       return data
     }
-    ElMessage.error(data.message || 'request failed')
+    ElMessage.error(data?.message || 'request failed')
     return Promise.reject(data)
   },
   (error) => {
