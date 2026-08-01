@@ -1,6 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
+let progressBar = null
+let progressTimer = null
+
+function startProgress() {
+  if (progressBar) return
+  progressBar = document.createElement('div')
+  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#409eff,#67c23a);z-index:9999;transition:width 0.3s ease;box-shadow:0 0 8px rgba(64,158,255,0.5)'
+  document.body.appendChild(progressBar)
+  let width = 0
+  progressTimer = setInterval(() => {
+    width += (90 - width) * 0.1
+    progressBar.style.width = width + '%'
+  }, 100)
+}
+
+function finishProgress() {
+  if (!progressBar) return
+  clearInterval(progressTimer)
+  progressBar.style.width = '100%'
+  setTimeout(() => {
+    if (progressBar && progressBar.parentNode) {
+      progressBar.parentNode.removeChild(progressBar)
+    }
+    progressBar = null
+  }, 300)
+}
+
 const routes = [
   {
     path: '/login',
@@ -57,6 +84,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.path !== from.path) startProgress()
   const authStore = useAuthStore()
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
@@ -65,6 +93,10 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+router.afterEach(() => {
+  finishProgress()
 })
 
 export default router

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { dedupRequest, generateRequestKey } from '@/utils/perf-utils'
+import { retryWithBackoff, classifyError } from '@/utils/error-handler'
 
 const api = axios.create({
   baseURL: '/api',
@@ -40,8 +42,28 @@ api.interceptors.response.use(
         window.location.href = '/login'
         return
       }
-      const msg = error.response.data?.message || 'server error'
-      ElMessage.error(msg)
+      const errType = classifyError(error)
+      if (errType === 'server' && !error.config.__retried) {
+        error.config.__retried = true
+        return retryWithBackoff(
+          (attempt) => {
+            ElMessage.info(`服务器错误，正在重试(${attempt + 1}/3)...`)
+            return api.request(error.config)
+          },
+          3, 1000
+        ).catch(() => {
+          ElMessage.error('重试失败，请稍后再试')
+          return Promise.reject(error)
+        })
+      }
+      if (errType === 'rateLimit') {
+        ElMessage.warning('请求过于频繁，请稍后再试')
+      } else {
+        const msg = error.response.data?.message || 'server error'
+        ElMessage.error(msg)
+      }
+    } else if (classifyError(error) === 'offline') {
+      ElMessage.warning('网络已断开，请检查网络连接')
     } else {
       ElMessage.error('network error')
     }
@@ -65,13 +87,19 @@ export const documentApi = {
     })
   },
   download: (fileId) => api.get('/document/download/' + fileId, { responseType: 'arraybuffer' }),
-  list: () => api.get('/document/list'),
+  list: () => dedupRequest(
+    generateRequestKey('/document/list', 'GET'),
+    () => api.get('/document/list')
+  ),
   delete: (fileId) => api.delete('/document/' + fileId)
 }
 
 export const edbApi = {
   update: (entries) => api.post('/edb/update', { entries }),
-  search: (tokens) => api.post('/edb/search', { tokens }),
+  search: (tokens) => dedupRequest(
+    generateRequestKey('/edb/search', tokens),
+    () => api.post('/edb/search', { tokens })
+  ),
   sync: (states) => api.post('/edb/sync', { states })
 }
 

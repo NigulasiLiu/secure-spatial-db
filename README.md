@@ -59,6 +59,7 @@ secure-spatial-db/
 │   ├── vite.config.js
 │   ├── nginx.conf
 │   └── Dockerfile
+├── test-documents/             # 测试数据文件
 ├── docker-compose.yml          # 容器编排
 └── README.md
 ```
@@ -92,6 +93,10 @@ cd frontend
 npm install
 npm run dev
 ```
+
+本地开发端口：
+- 后端：http://localhost:8080
+- 前端：http://localhost:5173（Vite 开发服务器，API 请求自动代理到后端）
 
 ## API 接口
 
