@@ -37,7 +37,7 @@ public class RSKQServer {
 
         Map<Integer, BigInteger[]> encryptedBitmaps = new HashMap<>();
 
-        for (int i = cnt; i >= cntU; i--) {
+        for (int i = cnt - 1; i >= 0; i--) {
             byte[] ri = HashFunctions.intTo16Bytes(i);
             byte[] indexBytes = hashFunctions.hashBytes(kx, ri);
             String indexKey = HashFunctions.bytesToHex(indexBytes);
