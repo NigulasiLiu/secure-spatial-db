@@ -314,10 +314,10 @@ async function handleBatchDownload() {
   gap: 12px;
   padding: 8px 16px;
   margin-bottom: 12px;
-  background: #ecf5ff;
+  background: #E8F3FF;
   border-radius: 4px;
   font-size: 14px;
-  color: #409eff;
+  color: #1677FF;
 }
 .name-cell {
   display: flex;
@@ -326,7 +326,7 @@ async function handleBatchDownload() {
 }
 .file-icon {
   font-size: 16px;
-  color: #909399;
+  color: #8C8C8C;
 }
 .expand-detail {
   padding: 12px 24px;

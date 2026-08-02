@@ -163,12 +163,12 @@ async function extractKeywords(file, maxCount = 15) {
 
 function getKeywordColor(type) {
   const colors = {
-    highFreq: '#f56c6c',
-    important: '#409eff',
-    entity: '#67c23a',
-    hot: '#e6a23c'
+    highFreq: '#FF6A00',
+    important: '#1677FF',
+    entity: '#00C7C7',
+    hot: '#FFCB00'
   }
-  return colors[type] || '#909399'
+  return colors[type] || '#8C8C8C'
 }
 
 function getKeywordTypeName(type) {

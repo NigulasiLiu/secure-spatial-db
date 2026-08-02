@@ -62,7 +62,7 @@
     </el-card>
 
     <el-drawer v-model="showHistory" title="检索历史" size="350px">
-      <div v-if="searchHistoryList.length === 0" style="text-align:center;color:#909399;padding:20px">暂无历史记录</div>
+      <div v-if="searchHistoryList.length === 0" style="text-align:center;color:#8C8C8C;padding:20px">暂无历史记录</div>
       <div v-for="(item, idx) in searchHistoryList" :key="idx" class="history-item" @click="restoreSearch(item)">
         <div class="history-keyword">{{ item.keyword }}</div>
         <div class="history-meta">模式: {{ item.mode }} | 中心: [{{ item.centerLng.toFixed(2) }}, {{ item.centerLat.toFixed(2) }}] | 半径: {{ item.radiusKm }}km</div>
@@ -172,13 +172,13 @@ function drawShape() {
   if (form.mode === 'circle') {
     shapeLayer = L.circle([form.centerLat, form.centerLng], {
       radius: form.radiusKm * 1000,
-      color: '#2196f3', weight: 2, fillOpacity: 0.1
+      color: '#1677FF', weight: 2, fillOpacity: 0.1
     }).addTo(map)
   } else {
     const deg = form.radiusKm / 111
     shapeLayer = L.rectangle(
       [[form.centerLat - deg, form.centerLng - deg], [form.centerLat + deg, form.centerLng + deg]],
-      { color: '#2196f3', weight: 2, fillOpacity: 0.1 }
+      { color: '#1677FF', weight: 2, fillOpacity: 0.1 }
     ).addTo(map)
   }
 }
@@ -322,7 +322,7 @@ function addSingleMarker(layer, p) {
       名称: ${p.name || 'unknown'}<br/>
       大小: ${sizeStr}<br/>
       坐标: ${p.lng.toFixed(4)}, ${p.lat.toFixed(4)}<br/>
-      <button onclick="window.__grqDownload('${p.fileId}')" style="margin-top:6px;padding:4px 12px;background:#409eff;color:#fff;border:none;border-radius:4px;cursor:pointer">下载解密</button>
+      <button onclick="window.__grqDownload('${p.fileId}')" style="margin-top:6px;padding:4px 12px;background:#1677FF;color:#fff;border:none;border-radius:4px;cursor:pointer">下载解密</button>
     </div>
   `)
 }
@@ -356,8 +356,8 @@ function drawHeatmap(points) {
   for (const p of points) {
     L.circle([p.lat, p.lng], {
       radius: 800,
-      color: '#f56c6c',
-      fillColor: '#f56c6c',
+      color: '#FF6A00',
+      fillColor: '#FF6A00',
       fillOpacity: 0.3,
       weight: 0
     }).addTo(heatmapLayer)
@@ -491,11 +491,11 @@ function resetForm() {
   width: 100%;
   height: 350px;
   border-radius: 4px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid #E5E8EB;
 }
 .map-hint {
   font-size: 12px;
-  color: #909399;
+  color: #8C8C8C;
   margin-top: 6px;
 }
 .map-controls {
@@ -510,24 +510,24 @@ function resetForm() {
   cursor: pointer;
   transition: background 0.2s;
   margin-bottom: 8px;
-  border: 1px solid #ebeef5;
+  border: 1px solid #E5E8EB;
 }
 .history-item:hover {
-  background: #ecf5ff;
+  background: #E8F3FF;
 }
 .history-keyword {
   font-size: 14px;
   font-weight: 600;
-  color: #303133;
+  color: #1A1A1A;
 }
 .history-meta {
   font-size: 12px;
-  color: #909399;
+  color: #8C8C8C;
   margin-top: 4px;
 }
 .history-time {
   font-size: 11px;
-  color: #c0c4cc;
+  color: #BFBFBF;
   margin-top: 2px;
 }
 </style>

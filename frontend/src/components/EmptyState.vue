@@ -31,14 +31,14 @@ defineEmits(['action'])
 }
 .empty-icon {
   font-size: 48px;
-  color: #c0c4cc;
+  color: #BFBFBF;
 }
 .empty-text {
   font-size: 16px;
-  color: #909399;
+  color: #8C8C8C;
 }
 .empty-subtext {
   font-size: 13px;
-  color: #c0c4cc;
+  color: #BFBFBF;
 }
 </style>

@@ -33,7 +33,7 @@ onBeforeUnmount(() => {
   left: 0;
   right: 0;
   z-index: 9999;
-  background: #f56c6c;
+  background: #FF6A00;
   color: #fff;
   display: flex;
   align-items: center;

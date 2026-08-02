@@ -178,10 +178,10 @@ function clearHistory() {
 }
 
 function getHeatColor(count) {
-  if (count >= 10) return '#f56c6c'
-  if (count >= 5) return '#e6a23c'
-  if (count >= 3) return '#409eff'
-  return '#67c23a'
+  if (count >= 10) return '#FF6A00'
+  if (count >= 5) return '#FFCB00'
+  if (count >= 3) return '#1677FF'
+  return '#00C7C7'
 }
 
 function getHeatOpacity(count) {
@@ -223,12 +223,12 @@ function getHeatOpacity(count) {
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
-  color: #909399;
+  color: #8C8C8C;
   margin-bottom: 6px;
 }
 
 .suggest-count {
-  color: #c0c4cc;
+  color: #BFBFBF;
 }
 
 .suggest-tags {
@@ -246,51 +246,51 @@ function getHeatOpacity(count) {
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
-  background: #f5f7fa;
-  color: #606266;
+  background: #F5F7FA;
+  color: #595959;
   border: 1px solid transparent;
 }
 
 .suggest-tag:hover {
-  background: var(--heat-color, #409eff);
+  background: var(--heat-color, #1677FF);
   color: #fff;
-  border-color: var(--heat-color, #409eff);
+  border-color: var(--heat-color, #1677FF);
 }
 
 .history-tag {
-  background: #fdf6ec;
-  color: #e6a23c;
-  border-color: #faecd8;
+  background: #FFF8E0;
+  color: #B88600;
+  border-color: #FFEFC0;
 }
 
 .history-tag:hover {
-  background: #e6a23c;
+  background: #FFCB00;
   color: #fff;
-  border-color: #e6a23c;
+  border-color: #FFCB00;
 }
 
 .doc-tag {
-  background: #f0f9eb;
-  color: #67c23a;
-  border-color: #e1f3d8;
+  background: #E0F7F7;
+  color: #00A5A5;
+  border-color: #C0F0F0;
 }
 
 .doc-tag:hover {
-  background: #67c23a;
+  background: #00C7C7;
   color: #fff;
-  border-color: #67c23a;
+  border-color: #00C7C7;
 }
 
 .tag-heat {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--heat-color, #409eff);
+  background: var(--heat-color, #1677FF);
 }
 
 .tag-count {
   font-size: 11px;
-  color: #c0c4cc;
+  color: #BFBFBF;
 }
 
 .suggest-tag:hover .tag-count {

@@ -95,14 +95,14 @@ async function handleRegister() {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #072B61 0%, #1677FF 100%);
 }
 .login-card {
   width: 420px;
   padding: 40px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 32px rgba(7,43,97,0.2);
 }
 .login-header {
   text-align: center;
@@ -110,12 +110,12 @@ async function handleRegister() {
 }
 .login-header h1 {
   font-size: 22px;
-  color: #303133;
+  color: #1A1A1A;
   margin-bottom: 8px;
 }
 .login-header p {
   font-size: 14px;
-  color: #909399;
+  color: #8C8C8C;
 }
 .login-tabs {
   margin-bottom: 10px;

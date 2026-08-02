@@ -24,7 +24,7 @@
           <div class="keyword-cloud">
             <div class="cloud-section" v-if="extractedKeywords.highFreq.length > 0">
               <div class="cloud-label">
-                <span class="dot" style="background:#f56c6c"></span>高频词
+                <span class="dot" style="background:#FF6A00"></span>高频词
                 <el-button text size="small" @click="selectAllHighFreq">全选</el-button>
               </div>
               <div class="cloud-tags">
@@ -33,14 +33,14 @@
                   :key="item.word"
                   class="cloud-tag"
                   :class="{ selected: selectedExtracted.has(item.word) }"
-                  style="--tag-color:#f56c6c"
+                  style="--tag-color:#FF6A00"
                   @click="toggleExtractedWord(item.word)"
                 >{{ item.word }}</span>
               </div>
             </div>
             <div class="cloud-section" v-if="extractedKeywords.important.length > 0">
               <div class="cloud-label">
-                <span class="dot" style="background:#409eff"></span>重要词(TF-IDF)
+                <span class="dot" style="background:#1677FF"></span>重要词(TF-IDF)
               </div>
               <div class="cloud-tags">
                 <span
@@ -48,14 +48,14 @@
                   :key="item.word"
                   class="cloud-tag"
                   :class="{ selected: selectedExtracted.has(item.word) }"
-                  style="--tag-color:#409eff"
+                  style="--tag-color:#1677FF"
                   @click="toggleExtractedWord(item.word)"
                 >{{ item.word }}</span>
               </div>
             </div>
             <div class="cloud-section" v-if="extractedKeywords.entities.length > 0">
               <div class="cloud-label">
-                <span class="dot" style="background:#67c23a"></span>实体词
+                <span class="dot" style="background:#00C7C7"></span>实体词
               </div>
               <div class="cloud-tags">
                 <span
@@ -63,14 +63,14 @@
                   :key="item.word"
                   class="cloud-tag"
                   :class="{ selected: selectedExtracted.has(item.word) }"
-                  style="--tag-color:#67c23a"
+                  style="--tag-color:#00C7C7"
                   @click="toggleExtractedWord(item.word)"
                 >{{ item.word }}</span>
               </div>
             </div>
             <div class="cloud-section" v-if="extractedKeywords.hot.length > 0">
               <div class="cloud-label">
-                <span class="dot" style="background:#e6a23c"></span>推荐词
+                <span class="dot" style="background:#FFCB00"></span>推荐词
               </div>
               <div class="cloud-tags">
                 <span
@@ -78,7 +78,7 @@
                   :key="item.word"
                   class="cloud-tag"
                   :class="{ selected: selectedExtracted.has(item.word) }"
-                  style="--tag-color:#e6a23c"
+                  style="--tag-color:#FFCB00"
                   @click="toggleExtractedWord(item.word)"
                 >{{ item.word }}</span>
               </div>
@@ -315,7 +315,7 @@ function resetForm() {
   width: 100%;
   height: 300px;
   border-radius: 4px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid #E5E8EB;
 }
 
 .keyword-cloud {
@@ -331,7 +331,7 @@ function resetForm() {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #606266;
+  color: #595959;
   margin-bottom: 6px;
 }
 
@@ -355,24 +355,24 @@ function resetForm() {
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
-  background: #f5f7fa;
-  color: var(--tag-color, #606266);
+  background: #F5F7FA;
+  color: var(--tag-color, #595959);
   border: 1px solid transparent;
   user-select: none;
 }
 
 .cloud-tag:hover {
-  background: var(--tag-color, #409eff);
+  background: var(--tag-color, #1677FF);
   color: #fff;
-  border-color: var(--tag-color, #409eff);
+  border-color: var(--tag-color, #1677FF);
   transform: scale(1.05);
 }
 
 .cloud-tag.selected {
-  background: var(--tag-color, #409eff);
+  background: var(--tag-color, #1677FF);
   color: #fff;
-  border-color: var(--tag-color, #409eff);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-color: var(--tag-color, #1677FF);
+  box-shadow: 0 2px 6px rgba(7,43,97,0.15);
 }
 
 .upload-progress {
@@ -380,7 +380,7 @@ function resetForm() {
 }
 .progress-step {
   font-size: 13px;
-  color: #909399;
+  color: #8C8C8C;
   margin-top: 6px;
 }
 </style>

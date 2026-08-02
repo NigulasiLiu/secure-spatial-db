@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
 .virtual-scroll-container {
   overflow-y: auto;
   position: relative;
-  border: 1px solid #ebeef5;
+  border: 1px solid #E5E8EB;
   border-radius: 4px;
 }
 

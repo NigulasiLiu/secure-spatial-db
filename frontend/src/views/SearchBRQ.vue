@@ -62,7 +62,7 @@
     </el-card>
 
     <el-drawer v-model="showHistory" title="检索历史" size="350px">
-      <div v-if="searchHistoryList.length === 0" style="text-align:center;color:#909399;padding:20px">暂无历史记录</div>
+      <div v-if="searchHistoryList.length === 0" style="text-align:center;color:#8C8C8C;padding:20px">暂无历史记录</div>
       <div v-for="(item, idx) in searchHistoryList" :key="idx" class="history-item" @click="restoreSearch(item)">
         <div class="history-keyword">{{ item.keyword }}</div>
         <div class="history-meta">范围: [{{ item.lngMin.toFixed(2) }}, {{ item.latMin.toFixed(2) }}] ~ [{{ item.lngMax.toFixed(2) }}, {{ item.latMax.toFixed(2) }}]</div>
@@ -173,7 +173,7 @@ function drawRect() {
   if (rectLayer) map.removeLayer(rectLayer)
   rectLayer = L.rectangle(
     [[form.latMin, form.lngMin], [form.latMax, form.lngMax]],
-    { color: '#ff9800', weight: 2, fillOpacity: 0.1 }
+    { color: '#FF6A00', weight: 2, fillOpacity: 0.1 }
   ).addTo(map)
 }
 
@@ -293,7 +293,7 @@ function addSingleMarker(layer, p) {
       名称: ${p.name || 'unknown'}<br/>
       大小: ${sizeStr}<br/>
       坐标: ${p.lng.toFixed(4)}, ${p.lat.toFixed(4)}<br/>
-      <button onclick="window.__brqDownload('${p.fileId}')" style="margin-top:6px;padding:4px 12px;background:#409eff;color:#fff;border:none;border-radius:4px;cursor:pointer">下载解密</button>
+      <button onclick="window.__brqDownload('${p.fileId}')" style="margin-top:6px;padding:4px 12px;background:#1677FF;color:#fff;border:none;border-radius:4px;cursor:pointer">下载解密</button>
     </div>
   `)
 }
@@ -327,8 +327,8 @@ function drawHeatmap(points) {
   for (const p of points) {
     L.circle([p.lat, p.lng], {
       radius: 800,
-      color: '#f56c6c',
-      fillColor: '#f56c6c',
+      color: '#FF6A00',
+      fillColor: '#FF6A00',
       fillOpacity: 0.3,
       weight: 0
     }).addTo(heatmapLayer)
@@ -461,7 +461,7 @@ function resetForm() {
   width: 100%;
   height: 300px;
   border-radius: 4px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid #E5E8EB;
 }
 .map-controls {
   display: flex;
@@ -475,30 +475,30 @@ function resetForm() {
   cursor: pointer;
   transition: background 0.2s;
   margin-bottom: 8px;
-  border: 1px solid #ebeef5;
+  border: 1px solid #E5E8EB;
 }
 .history-item:hover {
-  background: #ecf5ff;
+  background: #E8F3FF;
 }
 .history-keyword {
   font-size: 14px;
   font-weight: 600;
-  color: #303133;
+  color: #1A1A1A;
 }
 .history-meta {
   font-size: 12px;
-  color: #909399;
+  color: #8C8C8C;
   margin-top: 4px;
 }
 .history-time {
   font-size: 11px;
-  color: #c0c4cc;
+  color: #BFBFBF;
   margin-top: 2px;
 }
 </style>
 <style>
 .custom-cluster .cluster-icon {
-  background: #409eff;
+  background: #1677FF;
   color: #fff;
   border-radius: 50%;
   width: 40px;

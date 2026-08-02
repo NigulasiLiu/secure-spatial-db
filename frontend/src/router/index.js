@@ -7,7 +7,7 @@ let progressTimer = null
 function startProgress() {
   if (progressBar) return
   progressBar = document.createElement('div')
-  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#409eff,#67c23a);z-index:9999;transition:width 0.3s ease;box-shadow:0 0 8px rgba(64,158,255,0.5)'
+  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#1677FF,#00C7C7);z-index:9999;transition:width 0.3s ease;box-shadow:0 0 8px rgba(22,119,255,0.5)'
   document.body.appendChild(progressBar)
   let width = 0
   progressTimer = setInterval(() => {

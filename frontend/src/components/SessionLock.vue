@@ -81,20 +81,20 @@ function unlock() {
 
 .lock-icon {
   font-size: 48px;
-  color: #909399;
+  color: #8C8C8C;
   margin-bottom: 16px;
 }
 
 .lock-card h2 {
   margin: 0 0 8px 0;
   font-size: 20px;
-  color: #303133;
+  color: #1A1A1A;
 }
 
 .lock-card p {
   margin: 0 0 24px 0;
   font-size: 14px;
-  color: #909399;
+  color: #8C8C8C;
 }
 
 .unlock-btn {

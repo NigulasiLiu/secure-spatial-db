@@ -181,7 +181,7 @@ function initTrendChart() {
         smooth: true,
         areaStyle: { opacity: 0.3 },
         data: [2, 3, 1, 4, 2, 5, stats.value.docCount > 0 ? 3 : 0],
-        itemStyle: { color: '#409eff' }
+        itemStyle: { color: '#1677FF' }
       },
       {
         name: '检索',
@@ -189,7 +189,7 @@ function initTrendChart() {
         smooth: true,
         areaStyle: { opacity: 0.3 },
         data: [1, 2, 3, 2, 4, 3, searchHistory.length],
-        itemStyle: { color: '#67c23a' }
+        itemStyle: { color: '#00C7C7' }
       }
     ]
   })
@@ -267,7 +267,7 @@ function initHeatmapChart() {
     visualMap: {
       show: false,
       min: 0, max: Math.max(1, ...points.map(p => p.value[2])),
-      inRange: { color: ['#50a3ba', '#eac736', '#d94e5d'] }
+      inRange: { color: ['#8CBFFF', '#1677FF', '#072B61'] }
     },
     grid: { left: '5%', right: '15%', top: '5%', bottom: '5%' },
     xAxis: { type: 'value', name: '经度', min: minLng - 1, max: maxLng + 1, scale: true },

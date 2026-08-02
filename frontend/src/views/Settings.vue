@@ -6,9 +6,9 @@
         <el-descriptions-item label="密钥状态">
           <el-tag :type="hasKeys ? 'success' : 'danger'">{{ hasKeys ? '已生成' : '未生成' }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="根密钥 K_Σ">{{ keyInfo.rootKey }}</el-descriptions-item>
-        <el-descriptions-item label="文档加密密钥 K_I">{{ keyInfo.keyI }}</el-descriptions-item>
-        <el-descriptions-item label="状态加密密钥 K_S">{{ keyInfo.keyS }}</el-descriptions-item>
+        <el-descriptions-item label="根密钥 K<sub>Σ</sub>">{{ keyInfo.rootKey }}</el-descriptions-item>
+        <el-descriptions-item label="文档加密密钥 K<sub>I</sub>">{{ keyInfo.keyI }}</el-descriptions-item>
+        <el-descriptions-item label="状态加密密钥 K<sub>S</sub>">{{ keyInfo.keyS }}</el-descriptions-item>
         <el-descriptions-item label="安全参数">λ = 128 bit</el-descriptions-item>
         <el-descriptions-item label="PRF">HMAC-SHA256</el-descriptions-item>
         <el-descriptions-item label="哈希函数">Blake2b-128 (H1-H5)</el-descriptions-item>

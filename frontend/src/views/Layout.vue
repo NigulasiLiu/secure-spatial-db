@@ -182,7 +182,7 @@ onUnmounted(() => {
   height: 100vh;
 }
 .layout-aside {
-  background: #001529;
+  background: #072B61;
   overflow: hidden;
   transition: width 0.3s;
 }
@@ -197,31 +197,35 @@ onUnmounted(() => {
 .logo h2 {
   font-size: 20px;
   margin: 0;
+  letter-spacing: 0.5px;
 }
 .logo p {
   font-size: 12px;
-  color: #999;
+  color: rgba(255,255,255,0.45);
 }
 .layout-menu {
   border-right: none;
-  background: #001529;
+  background: #072B61;
 }
 .layout-menu .el-menu-item {
-  color: #fff;
+  color: rgba(255,255,255,0.85);
 }
 .layout-menu .el-menu-item:hover {
-  background: #1890ff;
+  background: #1677FF;
+  color: #fff;
 }
 .layout-menu .el-menu-item.is-active {
-  background: #1890ff;
+  background: #1677FF;
+  color: #fff;
+  font-weight: 500;
 }
 .layout-header {
   background: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e8e8e8;
-  box-shadow: 0 1px 4px rgba(0,21,41,0.08);
+  border-bottom: 1px solid #E5E8EB;
+  box-shadow: 0 1px 4px rgba(7,43,97,0.06);
 }
 .header-left {
   display: flex;
@@ -231,11 +235,16 @@ onUnmounted(() => {
 .header-left span {
   font-size: 18px;
   font-weight: 600;
+  color: #1A1A1A;
 }
 .collapse-btn {
   font-size: 20px;
   cursor: pointer;
-  color: #606266;
+  color: #595959;
+  transition: color 0.2s;
+}
+.collapse-btn:hover {
+  color: #1677FF;
 }
 .header-right {
   display: flex;
@@ -245,19 +254,24 @@ onUnmounted(() => {
 .header-icon {
   font-size: 18px;
   cursor: pointer;
-  color: #606266;
+  color: #595959;
+  transition: color 0.2s;
 }
 .header-icon:hover {
-  color: #409eff;
+  color: #1677FF;
 }
 .user-info {
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  color: #595959;
+}
+.user-info:hover {
+  color: #1677FF;
 }
 .layout-main {
-  background: #f0f2f5;
+  background: #F5F7FA;
   padding: 20px;
   overflow-y: auto;
 }
