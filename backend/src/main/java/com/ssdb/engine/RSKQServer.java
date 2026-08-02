@@ -37,7 +37,7 @@ public class RSKQServer {
 
         Map<Integer, BigInteger[]> encryptedBitmaps = new HashMap<>();
 
-        for (int i = cnt - 1; i >= 0; i--) {
+        for (int i = cnt - 1; i >= cntU; i--) {
             byte[] ri = HashFunctions.intTo16Bytes(i);
             byte[] indexBytes = hashFunctions.hashBytes(kx, ri);
             String indexKey = HashFunctions.bytesToHex(indexBytes);
@@ -49,6 +49,7 @@ public class RSKQServer {
             }
 
             encryptedBitmaps.put(i, new BigInteger[]{record.eId, record.eOp});
+            // 论文 Step 2: deletes EDB[I] to preserve backward security
             storageAdapter.removeEncryptedEntry(table, indexKey);
         }
 

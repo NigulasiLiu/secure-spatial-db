@@ -210,10 +210,18 @@ async function handleSearch() {
       form.keyword, form.lngMin, form.latMin, form.lngMax, form.latMax
     )
     const searchRes = await edbApi.search(tokens)
-    const fileIds = await client.decryptSearchResults(
+    const { fileIds, syncStates } = await client.decryptSearchResults(
       searchRes.data.results || [],
       form.keyword, form.lngMin, form.latMin, form.lngMax, form.latMax
     )
+
+    // 论文 Step 4: 同步聚合状态 SS 到服务器
+    if (syncStates && syncStates.length > 0) {
+      await edbApi.sync(syncStates)
+    }
+
+    // 持久化更新后的客户端状态（cntU 已推进）
+    localStorage.setItem('rskq_state', JSON.stringify(client.getState()))
 
     let docMap
     const cachedMeta = cacheManager.getDocMetaList()

@@ -31,12 +31,16 @@ public class HashFunctions {
 
     public byte[] hashBytes(byte[] input1, byte[] input2) {
         Blake2bDigest digest = new Blake2bDigest(HASH_OUTPUT_LENGTH * 8);
+        // 域分离：H1(x) = Blake2b-128(0x01 || x)，与前端 h1 对齐
+        digest.update(DOMAIN_H1, 0, DOMAIN_H1.length);
         digest.update(input1, 0, input1.length);
         digest.update(input2, 0, input2.length);
         byte[] result = new byte[HASH_OUTPUT_LENGTH];
         digest.doFinal(result, 0);
         return result;
     }
+
+    private static final byte[] DOMAIN_H1 = new byte[]{0x01};
 
     public byte[] hashInt(byte[] input1, int input2) {
         Blake2bDigest digest = new Blake2bDigest(HASH_OUTPUT_LENGTH * 8);
